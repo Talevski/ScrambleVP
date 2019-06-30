@@ -8,3 +8,13 @@ C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\obj\Debug\Scramble.csproj.Ge
 C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\obj\Debug\Scramble.csproj.CoreCompileInputs.cache
 C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\obj\Debug\Scramble.exe
 C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\obj\Debug\Scramble.pdb
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\bin\Debug\Scramble.exe.config
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\bin\Debug\Scramble.exe
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\bin\Debug\Scramble.pdb
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.csprojAssemblyReference.cache
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.Form1.resources
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.Properties.Resources.resources
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.csproj.GenerateResource.cache
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.csproj.CoreCompileInputs.cache
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.exe
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.pdb

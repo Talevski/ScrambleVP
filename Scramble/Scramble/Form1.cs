@@ -54,6 +54,8 @@ namespace Scramble
             Timer timerLaser= new Timer { Interval = 100 };
             timerLaser.Tick += new EventHandler(MoveLaser);
             timerLaser.Start();
+
+            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -85,6 +87,8 @@ namespace Scramble
             #endregion
 
             Collisions();
+
+            
         }
 
         private void PlaneImageShifter(object sender, EventArgs e)
@@ -96,72 +100,102 @@ namespace Scramble
             };
             int index = DateTime.Now.Millisecond % bitmap.Count;
             Player.Image = bitmap[index];
+            Player.SendToBack();
         }
 
         private void ChangeGround(object sender, EventArgs e)
         {
-            #region LocationsAndHeightsChildren
-            pictureBox28.Height = pictureBox27.Height;
-            pictureBox28.Location = new Point(0, 410 - pictureBox28.Height);
-            pictureBox27.Height = pictureBox26.Height;
-            pictureBox27.Location = new Point(25, 410 - pictureBox27.Height);
-            pictureBox26.Height = pictureBox25.Height;
-            pictureBox26.Location = new Point(50, 410 - pictureBox26.Height);
-            pictureBox25.Height = pictureBox24.Height;
-            pictureBox25.Location = new Point(75, 410 - pictureBox25.Height);
-            pictureBox24.Height = pictureBox23.Height;
-            pictureBox24.Location = new Point(100, 410 - pictureBox24.Height);
-            pictureBox23.Height = pictureBox22.Height;
-            pictureBox23.Location = new Point(125, 410 - pictureBox23.Height);
-            pictureBox22.Height = pictureBox21.Height;
-            pictureBox22.Location = new Point(150, 410 - pictureBox22.Height);
-            pictureBox21.Height = pictureBox20.Height;
-            pictureBox21.Location = new Point(175, 410 - pictureBox21.Height);
-            pictureBox20.Height = pictureBox19.Height;
-            pictureBox20.Location = new Point(200, 410 - pictureBox20.Height);
-            pictureBox19.Height = pictureBox18.Height;
-            pictureBox19.Location = new Point(225, 410 - pictureBox19.Height);
-            pictureBox18.Height = pictureBox17.Height;
-            pictureBox18.Location = new Point(250, 410 - pictureBox18.Height);
-            pictureBox17.Height = pictureBox16.Height;
-            pictureBox17.Location = new Point(275, 410 - pictureBox17.Height);
-            pictureBox16.Height = pictureBox15.Height;
-            pictureBox16.Location = new Point(300, 410 - pictureBox16.Height);
-            pictureBox15.Height = pictureBox14.Height;
-            pictureBox15.Location = new Point(325, 410 - pictureBox15.Height);
-            pictureBox14.Height = pictureBox13.Height;
-            pictureBox14.Location = new Point(350, 410 - pictureBox14.Height);
-            pictureBox13.Height = pictureBox12.Height;
-            pictureBox13.Location = new Point(375, 410 - pictureBox13.Height);
-            pictureBox12.Height = pictureBox11.Height;
-            pictureBox12.Location = new Point(400, 410 - pictureBox12.Height);
-            pictureBox11.Height = pictureBox10.Height;
-            pictureBox11.Location = new Point(425, 410 - pictureBox11.Height);
-            pictureBox10.Height = pictureBox9.Height;
-            pictureBox10.Location = new Point(450, 410 - pictureBox10.Height);
-            pictureBox9.Height = pictureBox8.Height;
-            pictureBox9.Location = new Point(475, 410 - pictureBox9.Height);
-            pictureBox8.Height = pictureBox7.Height;
-            pictureBox8.Location = new Point(500, 410 - pictureBox8.Height);
-            pictureBox7.Height = pictureBox6.Height;
-            pictureBox7.Location = new Point(525, 410 - pictureBox7.Height);
-            pictureBox6.Height = pictureBox5.Height;
-            pictureBox6.Location = new Point(550, 410 - pictureBox6.Height);
-            pictureBox5.Height = pictureBox4.Height;
-            pictureBox5.Location = new Point(575, 410 - pictureBox5.Height);
-            pictureBox4.Height = pictureBox3.Height;
-            pictureBox4.Location = new Point(600, 410 - pictureBox4.Height);
-            pictureBox3.Height = pictureBox2.Height;
-            pictureBox3.Location = new Point(625, 410 - pictureBox3.Height);
-            pictureBox2.Height = pictureBox1.Height;
-            pictureBox2.Location = new Point(650, 410 - pictureBox2.Height);
+            #region LocationsAndHeightsChildren (Archived)
+            //pictureBox28.Height = pictureBox27.Height;
+            //pictureBox28.Location = new Point(0, 410 - pictureBox28.Height);
+            //pictureBox27.Height = pictureBox26.Height;
+            //pictureBox27.Location = new Point(25, 410 - pictureBox27.Height);
+            //pictureBox26.Height = pictureBox25.Height;
+            //pictureBox26.Location = new Point(50, 410 - pictureBox26.Height);
+            //pictureBox25.Height = pictureBox24.Height;
+            //pictureBox25.Location = new Point(75, 410 - pictureBox25.Height);
+            //pictureBox24.Height = pictureBox23.Height;
+            //pictureBox24.Location = new Point(100, 410 - pictureBox24.Height);
+            //pictureBox23.Height = pictureBox22.Height;
+            //pictureBox23.Location = new Point(125, 410 - pictureBox23.Height);
+            //pictureBox22.Height = pictureBox21.Height;
+            //pictureBox22.Location = new Point(150, 410 - pictureBox22.Height);
+            //pictureBox21.Height = pictureBox20.Height;
+            //pictureBox21.Location = new Point(175, 410 - pictureBox21.Height);
+            //pictureBox20.Height = pictureBox19.Height;
+            //pictureBox20.Location = new Point(200, 410 - pictureBox20.Height);
+            //pictureBox19.Height = pictureBox18.Height;
+            //pictureBox19.Location = new Point(225, 410 - pictureBox19.Height);
+            //pictureBox18.Height = pictureBox17.Height;
+            //pictureBox18.Location = new Point(250, 410 - pictureBox18.Height);
+            //pictureBox17.Height = pictureBox16.Height;
+            //pictureBox17.Location = new Point(275, 410 - pictureBox17.Height);
+            //pictureBox16.Height = pictureBox15.Height;
+            //pictureBox16.Location = new Point(300, 410 - pictureBox16.Height);
+            //pictureBox15.Height = pictureBox14.Height;
+            //pictureBox15.Location = new Point(325, 410 - pictureBox15.Height);
+            //pictureBox14.Height = pictureBox13.Height;
+            //pictureBox14.Location = new Point(350, 410 - pictureBox14.Height);
+            //pictureBox13.Height = pictureBox12.Height;
+            //pictureBox13.Location = new Point(375, 410 - pictureBox13.Height);
+            //pictureBox12.Height = pictureBox11.Height;
+            //pictureBox12.Location = new Point(400, 410 - pictureBox12.Height);
+            //pictureBox11.Height = pictureBox10.Height;
+            //pictureBox11.Location = new Point(425, 410 - pictureBox11.Height);
+            //pictureBox10.Height = pictureBox9.Height;
+            //pictureBox10.Location = new Point(450, 410 - pictureBox10.Height);
+            //pictureBox9.Height = pictureBox8.Height;
+            //pictureBox9.Location = new Point(475, 410 - pictureBox9.Height);
+            //pictureBox8.Height = pictureBox7.Height;
+            //pictureBox8.Location = new Point(500, 410 - pictureBox8.Height);
+            //pictureBox7.Height = pictureBox6.Height;
+            //pictureBox7.Location = new Point(525, 410 - pictureBox7.Height);
+            //pictureBox6.Height = pictureBox5.Height;
+            //pictureBox6.Location = new Point(550, 410 - pictureBox6.Height);
+            //pictureBox5.Height = pictureBox4.Height;
+            //pictureBox5.Location = new Point(575, 410 - pictureBox5.Height);
+            //pictureBox4.Height = pictureBox3.Height;
+            //pictureBox4.Location = new Point(600, 410 - pictureBox4.Height);
+            //pictureBox3.Height = pictureBox2.Height;
+            //pictureBox3.Location = new Point(625, 410 - pictureBox3.Height);
+            //pictureBox2.Height = pictureBox1.Height;
+            //pictureBox2.Location = new Point(650, 410 - pictureBox2.Height);
             #endregion
             //
             pictureBox1.Height = GetNextHeight(pictureBox1.Height);
             if (pictureBox1.Height < 40) pictureBox1.Height += 40;
             if (pictureBox1.Height > 120) pictureBox1.Height -= 40;
-            pictureBox1.Location = new Point(675, 410 - pictureBox1.Height);
-           
+            pictureBox1.Location = new Point(700, 410 - pictureBox1.Height);
+            //
+            var pictureBox = new PictureBox
+            {
+                Name = "pictureBox",
+                Size = new Size(25, 50),
+                Location = pictureBox1.Location,
+                Height = GetNextHeight(pictureBox1.Height),
+                BackColor = Color.Yellow,
+            
+            };
+            this.Controls.Add(pictureBox);
+            foreach (Control control in this.Controls)
+            {
+                if (control.Name == "pictureBox")
+                {
+                    control.Left -= 15;
+ 
+                    if (control.Left <= -25)
+                    {
+                        this.Controls.Remove(control);
+                        control.Dispose();
+                    }
+                    if (control.Bounds.IntersectsWith(Player.Bounds))
+                    {
+                        GameOver();
+                    }
+                
+                }
+            }
+
         }
 
         public int GetNextHeight(int height)
@@ -181,35 +215,35 @@ namespace Scramble
 
         public void Collisions()
         {
-            #region GroundCollision
-            if (Player.Bounds.IntersectsWith(pictureBox1.Bounds) || Player.Bounds.IntersectsWith(pictureBox2.Bounds) || Player.Bounds.IntersectsWith(pictureBox3.Bounds) || Player.Bounds.IntersectsWith(pictureBox4.Bounds))
-            {
-                GameOver();
-            }
-            else if (Player.Bounds.IntersectsWith(pictureBox5.Bounds) || Player.Bounds.IntersectsWith(pictureBox6.Bounds) || Player.Bounds.IntersectsWith(pictureBox7.Bounds) || Player.Bounds.IntersectsWith(pictureBox8.Bounds))
-            {
-                GameOver();
-            }
-            else if (Player.Bounds.IntersectsWith(pictureBox9.Bounds) || Player.Bounds.IntersectsWith(pictureBox10.Bounds) || Player.Bounds.IntersectsWith(pictureBox11.Bounds) || Player.Bounds.IntersectsWith(pictureBox12.Bounds))
-            {
-                GameOver();
-            }
-            else if (Player.Bounds.IntersectsWith(pictureBox13.Bounds) || Player.Bounds.IntersectsWith(pictureBox14.Bounds) || Player.Bounds.IntersectsWith(pictureBox15.Bounds) || Player.Bounds.IntersectsWith(pictureBox16.Bounds))
-            {
-                GameOver();
-            }
-            else if (Player.Bounds.IntersectsWith(pictureBox17.Bounds) || Player.Bounds.IntersectsWith(pictureBox18.Bounds) || Player.Bounds.IntersectsWith(pictureBox19.Bounds) || Player.Bounds.IntersectsWith(pictureBox20.Bounds) || Player.Bounds.IntersectsWith(pictureBox21.Bounds))
-            {
-                GameOver();
-            }
-            else if (Player.Bounds.IntersectsWith(pictureBox22.Bounds) || Player.Bounds.IntersectsWith(pictureBox23.Bounds) || Player.Bounds.IntersectsWith(pictureBox24.Bounds) || Player.Bounds.IntersectsWith(pictureBox25.Bounds) || Player.Bounds.IntersectsWith(pictureBox26.Bounds))
-            {
-                GameOver();
-            }
-            else if (Player.Bounds.IntersectsWith(pictureBox27.Bounds) || Player.Bounds.IntersectsWith(pictureBox28.Bounds))
-            {
-                GameOver();
-            }
+            #region GroundCollision (Archived)
+            //if (Player.Bounds.IntersectsWith(pictureBox1.Bounds) || Player.Bounds.IntersectsWith(pictureBox2.Bounds) || Player.Bounds.IntersectsWith(pictureBox3.Bounds) || Player.Bounds.IntersectsWith(pictureBox4.Bounds))
+            //{
+            //    GameOver();
+            //}
+            //else if (Player.Bounds.IntersectsWith(pictureBox5.Bounds) || Player.Bounds.IntersectsWith(pictureBox6.Bounds) || Player.Bounds.IntersectsWith(pictureBox7.Bounds) || Player.Bounds.IntersectsWith(pictureBox8.Bounds))
+            //{
+            //    GameOver();
+            //}
+            //else if (Player.Bounds.IntersectsWith(pictureBox9.Bounds) || Player.Bounds.IntersectsWith(pictureBox10.Bounds) || Player.Bounds.IntersectsWith(pictureBox11.Bounds) || Player.Bounds.IntersectsWith(pictureBox12.Bounds))
+            //{
+            //    GameOver();
+            //}
+            //else if (Player.Bounds.IntersectsWith(pictureBox13.Bounds) || Player.Bounds.IntersectsWith(pictureBox14.Bounds) || Player.Bounds.IntersectsWith(pictureBox15.Bounds) || Player.Bounds.IntersectsWith(pictureBox16.Bounds))
+            //{
+            //    GameOver();
+            //}
+            //else if (Player.Bounds.IntersectsWith(pictureBox17.Bounds) || Player.Bounds.IntersectsWith(pictureBox18.Bounds) || Player.Bounds.IntersectsWith(pictureBox19.Bounds) || Player.Bounds.IntersectsWith(pictureBox20.Bounds) || Player.Bounds.IntersectsWith(pictureBox21.Bounds))
+            //{
+            //    GameOver();
+            //}
+            //else if (Player.Bounds.IntersectsWith(pictureBox22.Bounds) || Player.Bounds.IntersectsWith(pictureBox23.Bounds) || Player.Bounds.IntersectsWith(pictureBox24.Bounds) || Player.Bounds.IntersectsWith(pictureBox25.Bounds) || Player.Bounds.IntersectsWith(pictureBox26.Bounds))
+            //{
+            //    GameOver();
+            //}
+            //else if (Player.Bounds.IntersectsWith(pictureBox27.Bounds) || Player.Bounds.IntersectsWith(pictureBox28.Bounds))
+            //{
+            //    GameOver();
+            //}
             #endregion
             //
 
@@ -217,12 +251,12 @@ namespace Scramble
 
         public void GameOver()
         {
-            MiddleScreenLabel.Text = "GAME OVER";
+            toolStripStatusLabel1.Text = "GAME OVER";
         }
 
         private void Player_LocationChanged(object sender, EventArgs e)
         {
-            MiddleScreenLabel.Text = Player.Location.ToString();
+            toolStripStatusLabel1.Text = Player.Location.ToString();
             if(Player.Location.X < -25) { Player.Left += movementSpeed; }
             else if(Player.Location.X > 675) { Player.Left -= movementSpeed; }
             else if (Player.Location.Y < -25) { Player.Top += movementSpeed; }
