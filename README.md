@@ -1,4 +1,5 @@
 # ScrambleVP
 VP Project Scramble
 
-Version One -- 20th May 2019
+1.0 -- 20th May 2019
+1.1 -- 1st July 2019
