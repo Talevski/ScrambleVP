@@ -30,6 +30,11 @@
         {
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tankEnemy1 = new System.Windows.Forms.PictureBox();
+            this.emilBoss = new System.Windows.Forms.PictureBox();
+            this.pongEnemy3 = new System.Windows.Forms.PictureBox();
+            this.pongEnemy2 = new System.Windows.Forms.PictureBox();
             this.pongEnemy1 = new System.Windows.Forms.PictureBox();
             this.pictureBox27 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
@@ -60,10 +65,12 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Player = new System.Windows.Forms.PictureBox();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pongEnemy2 = new System.Windows.Forms.PictureBox();
-            this.pongEnemy3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox29 = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tankEnemy1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emilBoss)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pongEnemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
@@ -94,8 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -115,6 +121,52 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(75, 17);
             this.toolStripStatusLabel1.Text = "GameStarted";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(36, 17);
+            this.toolStripStatusLabel2.Text = "Score";
+            // 
+            // tankEnemy1
+            // 
+            this.tankEnemy1.BackgroundImage = global::Scramble.Properties.Resources.tank;
+            this.tankEnemy1.Location = new System.Drawing.Point(497, 105);
+            this.tankEnemy1.Name = "tankEnemy1";
+            this.tankEnemy1.Size = new System.Drawing.Size(60, 60);
+            this.tankEnemy1.TabIndex = 38;
+            this.tankEnemy1.TabStop = false;
+            // 
+            // emilBoss
+            // 
+            this.emilBoss.BackColor = System.Drawing.Color.Transparent;
+            this.emilBoss.BackgroundImage = global::Scramble.Properties.Resources.emil;
+            this.emilBoss.Location = new System.Drawing.Point(497, 24);
+            this.emilBoss.Name = "emilBoss";
+            this.emilBoss.Size = new System.Drawing.Size(75, 75);
+            this.emilBoss.TabIndex = 37;
+            this.emilBoss.TabStop = false;
+            // 
+            // pongEnemy3
+            // 
+            this.pongEnemy3.BackColor = System.Drawing.Color.Transparent;
+            this.pongEnemy3.BackgroundImage = global::Scramble.Properties.Resources.crawler;
+            this.pongEnemy3.Location = new System.Drawing.Point(579, 136);
+            this.pongEnemy3.Name = "pongEnemy3";
+            this.pongEnemy3.Size = new System.Drawing.Size(49, 50);
+            this.pongEnemy3.TabIndex = 36;
+            this.pongEnemy3.TabStop = false;
+            // 
+            // pongEnemy2
+            // 
+            this.pongEnemy2.BackColor = System.Drawing.Color.Transparent;
+            this.pongEnemy2.BackgroundImage = global::Scramble.Properties.Resources.crawler;
+            this.pongEnemy2.Location = new System.Drawing.Point(579, 80);
+            this.pongEnemy2.Name = "pongEnemy2";
+            this.pongEnemy2.Size = new System.Drawing.Size(49, 50);
+            this.pongEnemy2.TabIndex = 35;
+            this.pongEnemy2.TabStop = false;
             // 
             // pongEnemy1
             // 
@@ -392,32 +444,14 @@
             this.Player.TabStop = false;
             this.Player.LocationChanged += new System.EventHandler(this.Player_LocationChanged);
             // 
-            // toolStripStatusLabel2
+            // pictureBox29
             // 
-            this.toolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(56, 17);
-            this.toolStripStatusLabel2.Text = "HitPoints";
-            // 
-            // pongEnemy2
-            // 
-            this.pongEnemy2.BackColor = System.Drawing.Color.Transparent;
-            this.pongEnemy2.BackgroundImage = global::Scramble.Properties.Resources.crawler;
-            this.pongEnemy2.Location = new System.Drawing.Point(579, 80);
-            this.pongEnemy2.Name = "pongEnemy2";
-            this.pongEnemy2.Size = new System.Drawing.Size(49, 50);
-            this.pongEnemy2.TabIndex = 35;
-            this.pongEnemy2.TabStop = false;
-            // 
-            // pongEnemy3
-            // 
-            this.pongEnemy3.BackColor = System.Drawing.Color.Transparent;
-            this.pongEnemy3.BackgroundImage = global::Scramble.Properties.Resources.crawler;
-            this.pongEnemy3.Location = new System.Drawing.Point(579, 136);
-            this.pongEnemy3.Name = "pongEnemy3";
-            this.pongEnemy3.Size = new System.Drawing.Size(49, 50);
-            this.pongEnemy3.TabIndex = 36;
-            this.pongEnemy3.TabStop = false;
+            this.pictureBox29.BackgroundImage = global::Scramble.Properties.Resources.commander;
+            this.pictureBox29.Location = new System.Drawing.Point(416, 24);
+            this.pictureBox29.Name = "pictureBox29";
+            this.pictureBox29.Size = new System.Drawing.Size(75, 90);
+            this.pictureBox29.TabIndex = 39;
+            this.pictureBox29.TabStop = false;
             // 
             // Form1
             // 
@@ -425,6 +459,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(684, 410);
+            this.Controls.Add(this.pictureBox29);
+            this.Controls.Add(this.tankEnemy1);
+            this.Controls.Add(this.emilBoss);
             this.Controls.Add(this.pongEnemy3);
             this.Controls.Add(this.pongEnemy2);
             this.Controls.Add(this.pongEnemy1);
@@ -466,6 +503,10 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tankEnemy1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emilBoss)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pongEnemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
@@ -496,8 +537,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,6 +580,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.PictureBox pongEnemy2;
         private System.Windows.Forms.PictureBox pongEnemy3;
+        private System.Windows.Forms.PictureBox emilBoss;
+        private System.Windows.Forms.PictureBox tankEnemy1;
+        private System.Windows.Forms.PictureBox pictureBox29;
     }
 }
 
