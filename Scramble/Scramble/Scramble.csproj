@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enemy.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +89,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\laser1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crawler.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plane31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\planeWreck.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

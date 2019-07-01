@@ -13,8 +13,15 @@ namespace Scramble
     public partial class Form1 : Form
     {
         const int movementSpeed = 15;
-        const int timeSpeed = 100;
-        Timer timerGeneral = new Timer { Interval = timeSpeed };
+        int score = 0;
+        int playerLives = 3;
+        bool gameWorking = true;
+        List<Timer> TimerList = new List<Timer>();
+
+        Enemy pong1props = new Enemy(1, 1, 10, 4);
+        Enemy pong2props = new Enemy(-1, 1, 10, 4);
+        Enemy pong3props = new Enemy(1, -1, 10, 4);
+
         #region RandomGeneratorElements
         private List<KeyValuePair<int, double>> elements = new List<KeyValuePair<int, double>>()
         {
@@ -43,24 +50,39 @@ namespace Scramble
         private void Form1_Load(object sender, EventArgs e)
         {
             Player.Image = Properties.Resources.plane3;
-            Timer timerPlayer = new Timer { Interval = 200 };
+            Timer timerPlayer = new Timer { Interval = 300 };
             timerPlayer.Tick += new EventHandler(PlaneImageShifter);
             timerPlayer.Start();
             //
-            Timer timerGround = new Timer { Interval = 500 };
+            Timer timerGround = new Timer { Interval = 750 };
             timerGround.Tick += new EventHandler(ChangeGround);
             timerGround.Start();
             //
-            Timer timerLaser= new Timer { Interval = 100 };
+            Timer timerLaser = new Timer { Interval = 100 };
             timerLaser.Tick += new EventHandler(MoveLaser);
             timerLaser.Start();
+            //
+            Timer timerEnemy = new Timer { Interval = 200 };
+            timerEnemy.Tick += new EventHandler(MoveEnemies);
+            timerEnemy.Start();
+            //
+            TimerList.Add(timerPlayer);
+            TimerList.Add(timerGround);
+            TimerList.Add(timerLaser);
+            TimerList.Add(timerEnemy);
+            //
+            //
+            pongEnemy1.Location = new Point(800, 600);
+            pongEnemy2.Location = new Point(800, 600);
+            pongEnemy3.Location = new Point(800, 600);
 
-            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            #region Movement
+            if (gameWorking)
+            {
+                #region Movement
                 if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
                 {
                     Player.Top -= movementSpeed;
@@ -77,17 +99,17 @@ namespace Scramble
                 {
                     Player.Left += movementSpeed;
                 }
-            #endregion
+                #endregion
 
-            #region Action
-            if (e.KeyCode == Keys.Z)
-            {
-                ShootBolt();
+                #region Action
+                if (e.KeyCode == Keys.Z)
+                {
+                    ShootBolt();
+                }
+                #endregion
+
+                Collisions();
             }
-            #endregion
-
-            Collisions();
-
             
         }
 
@@ -170,10 +192,10 @@ namespace Scramble
             var pictureBox = new PictureBox
             {
                 Name = "pictureBox",
-                Size = new Size(25, 50),
+                Size = new Size(20, 50),
                 Location = pictureBox1.Location,
                 Height = GetNextHeight(pictureBox1.Height),
-                BackColor = Color.Yellow,
+                BackColor = Color.OrangeRed,
             
             };
             this.Controls.Add(pictureBox);
@@ -181,7 +203,7 @@ namespace Scramble
             {
                 if (control.Name == "pictureBox")
                 {
-                    control.Left -= 15;
+                    control.Left -= 20;
  
                     if (control.Left <= -25)
                     {
@@ -190,7 +212,11 @@ namespace Scramble
                     }
                     if (control.Bounds.IntersectsWith(Player.Bounds))
                     {
-                        GameOver();
+                        playerLives--;
+                        if(playerLives <= 0)
+                        {
+                            GameOver();
+                        } 
                     }
                 
                 }
@@ -252,6 +278,12 @@ namespace Scramble
         public void GameOver()
         {
             toolStripStatusLabel1.Text = "GAME OVER";
+            foreach(Timer timer in TimerList)
+            {
+                timer.Stop();
+            }
+            gameWorking = false;
+            Player.Image = Properties.Resources.planeWreck;
         }
 
         private void Player_LocationChanged(object sender, EventArgs e)
@@ -289,7 +321,50 @@ namespace Scramble
                     this.Controls.Remove(laser);
                     laser.Dispose();
                 }
+                //
+                //
+                if (laser.Bounds.IntersectsWith(pongEnemy1.Bounds))
+                {
+                    pong1props.lifePoints--;
+                    if (pong1props.lifePoints < 0)
+                    {
+                        pongEnemy1.Location = new Point(800, 600);
+                        pong1props = new Enemy(1, 1, 10, 4);
+                        score++;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
             }
+        }
+
+        private void MoveEnemies(object sender, EventArgs e)
+        {
+
+            int r = GetNextHeight(50);
+
+            #region Pong Crawler Enemies
+            if (r >= 35 && r <= 40 && pong1props.isAlive == false)
+            {
+                pong1props.isAlive = true;
+                pongEnemy1.Location = new Point(620, 25);
+            }
+            if (pong1props.isAlive)
+            {
+                pongEnemy1.Top += pong1props.vertical * pong1props.speed;
+                pongEnemy1.Left += pong1props.horizontal * pong1props.speed;
+                if (pongEnemy1.Top >= 375 || pongEnemy1.Top <= 0)
+                {
+                    pong1props.vertical *= -1;
+                }
+                if (pongEnemy1.Left >= 650 || pongEnemy1.Left <= 0)
+                {
+                    pong1props.horizontal *= -1;
+                }
+                pongEnemy1.SendToBack();
+            }
+            #endregion
+
         }
     }
 }

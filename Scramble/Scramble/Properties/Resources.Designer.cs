@@ -63,6 +63,16 @@ namespace Scramble.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap crawler {
+            get {
+                object obj = ResourceManager.GetObject("crawler", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap laser1 {
             get {
                 object obj = ResourceManager.GetObject("laser1", resourceCulture);
@@ -86,6 +96,16 @@ namespace Scramble.Properties {
         internal static System.Drawing.Bitmap plane4 {
             get {
                 object obj = ResourceManager.GetObject("plane4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap planeWreck {
+            get {
+                object obj = ResourceManager.GetObject("planeWreck", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

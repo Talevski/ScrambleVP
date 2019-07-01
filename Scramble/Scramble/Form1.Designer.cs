@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pongEnemy1 = new System.Windows.Forms.PictureBox();
             this.pictureBox27 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
             this.pictureBox28 = new System.Windows.Forms.PictureBox();
@@ -57,8 +60,11 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Player = new System.Windows.Forms.PictureBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pongEnemy2 = new System.Windows.Forms.PictureBox();
+            this.pongEnemy3 = new System.Windows.Forms.PictureBox();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).BeginInit();
@@ -88,8 +94,37 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
-            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).BeginInit();
             this.SuspendLayout();
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(684, 22);
+            this.statusStrip1.TabIndex = 33;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(75, 17);
+            this.toolStripStatusLabel1.Text = "GameStarted";
+            // 
+            // pongEnemy1
+            // 
+            this.pongEnemy1.BackColor = System.Drawing.Color.Transparent;
+            this.pongEnemy1.BackgroundImage = global::Scramble.Properties.Resources.crawler;
+            this.pongEnemy1.Location = new System.Drawing.Point(578, 24);
+            this.pongEnemy1.Name = "pongEnemy1";
+            this.pongEnemy1.Size = new System.Drawing.Size(49, 50);
+            this.pongEnemy1.TabIndex = 34;
+            this.pongEnemy1.TabStop = false;
             // 
             // pictureBox27
             // 
@@ -352,27 +387,37 @@
             this.Player.Image = global::Scramble.Properties.Resources.plane3;
             this.Player.Location = new System.Drawing.Point(70, 100);
             this.Player.Name = "Player";
-            this.Player.Size = new System.Drawing.Size(76, 46);
+            this.Player.Size = new System.Drawing.Size(68, 46);
             this.Player.TabIndex = 0;
             this.Player.TabStop = false;
             this.Player.LocationChanged += new System.EventHandler(this.Player_LocationChanged);
             // 
-            // statusStrip1
+            // toolStripStatusLabel2
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(684, 22);
-            this.statusStrip1.TabIndex = 33;
-            this.statusStrip1.Text = "statusStrip1";
+            this.toolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(56, 17);
+            this.toolStripStatusLabel2.Text = "HitPoints";
             // 
-            // toolStripStatusLabel1
+            // pongEnemy2
             // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.pongEnemy2.BackColor = System.Drawing.Color.Transparent;
+            this.pongEnemy2.BackgroundImage = global::Scramble.Properties.Resources.crawler;
+            this.pongEnemy2.Location = new System.Drawing.Point(579, 80);
+            this.pongEnemy2.Name = "pongEnemy2";
+            this.pongEnemy2.Size = new System.Drawing.Size(49, 50);
+            this.pongEnemy2.TabIndex = 35;
+            this.pongEnemy2.TabStop = false;
+            // 
+            // pongEnemy3
+            // 
+            this.pongEnemy3.BackColor = System.Drawing.Color.Transparent;
+            this.pongEnemy3.BackgroundImage = global::Scramble.Properties.Resources.crawler;
+            this.pongEnemy3.Location = new System.Drawing.Point(579, 136);
+            this.pongEnemy3.Name = "pongEnemy3";
+            this.pongEnemy3.Size = new System.Drawing.Size(49, 50);
+            this.pongEnemy3.TabIndex = 36;
+            this.pongEnemy3.TabStop = false;
             // 
             // Form1
             // 
@@ -380,6 +425,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(684, 410);
+            this.Controls.Add(this.pongEnemy3);
+            this.Controls.Add(this.pongEnemy2);
+            this.Controls.Add(this.pongEnemy1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.pictureBox27);
             this.Controls.Add(this.pictureBox26);
@@ -416,6 +464,9 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox26)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox28)).EndInit();
@@ -445,8 +496,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,6 +536,10 @@
         public System.Windows.Forms.PictureBox pictureBox27;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.PictureBox pongEnemy1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.PictureBox pongEnemy2;
+        private System.Windows.Forms.PictureBox pongEnemy3;
     }
 }
 
