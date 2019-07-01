@@ -14,13 +14,14 @@ namespace Scramble
     {
         const int movementSpeed = 15;
         int score = 0;
-        int playerLives = 3;
+        int playerLives = 7;
         bool gameWorking = true;
         List<Timer> TimerList = new List<Timer>();
 
         Enemy pong1props = new Enemy(1, 1, 10, 4);
         Enemy pong2props = new Enemy(-1, 1, 10, 4);
         Enemy pong3props = new Enemy(1, -1, 10, 4);
+        Enemy emilProps = new Enemy(1, 1, 5, 30);
 
         #region RandomGeneratorElements
         private List<KeyValuePair<int, double>> elements = new List<KeyValuePair<int, double>>()
@@ -75,6 +76,7 @@ namespace Scramble
             pongEnemy1.Location = new Point(800, 600);
             pongEnemy2.Location = new Point(800, 600);
             pongEnemy3.Location = new Point(800, 600);
+            emilBoss.Location = new Point(800, 600);
 
         }
 
@@ -123,6 +125,7 @@ namespace Scramble
             int index = DateTime.Now.Millisecond % bitmap.Count;
             Player.Image = bitmap[index];
             Player.SendToBack();
+            toolStripStatusLabel2.Text = "Score:" + score.ToString();
         }
 
         private void ChangeGround(object sender, EventArgs e)
@@ -335,6 +338,47 @@ namespace Scramble
                     this.Controls.Remove(laser);
                     laser.Dispose();
                 }
+                if (laser.Bounds.IntersectsWith(pongEnemy2.Bounds))
+                {
+                    pong2props.lifePoints--;
+                    if (pong2props.lifePoints < 0)
+                    {
+                        pongEnemy2.Location = new Point(800, 600);
+                        pong2props = new Enemy(-1, 1, 10, 4);
+                        score++;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
+                if (laser.Bounds.IntersectsWith(pongEnemy3.Bounds))
+                {
+                    pong3props.lifePoints--;
+                    if (pong3props.lifePoints < 0)
+                    {
+                        pongEnemy3.Location = new Point(800, 600);
+                        pong3props = new Enemy(1, -1, 10, 4);
+                        score++;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
+                //
+                if (laser.Bounds.IntersectsWith(emilBoss.Bounds))
+                {
+                    emilProps.lifePoints--;
+                    if (emilProps.lifePoints < 0)
+                    {
+                        emilBoss.Location = new Point(800, 600);
+                        //emilProps = new Enemy(1, -1, 10, 4);
+                        score+=10;
+                        pong1props.isAlive = true;
+                        pong2props.isAlive = true;
+                        pong3props.isAlive = true;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
+
             }
         }
 
@@ -344,10 +388,10 @@ namespace Scramble
             int r = GetNextHeight(50);
 
             #region Pong Crawler Enemies
-            if (r >= 35 && r <= 40 && pong1props.isAlive == false)
+            if (r >= 40 && r <= 43 && pong1props.isAlive == false)
             {
                 pong1props.isAlive = true;
-                pongEnemy1.Location = new Point(620, 25);
+                pongEnemy1.Location = new Point(620, r*2);
             }
             if (pong1props.isAlive)
             {
@@ -362,6 +406,104 @@ namespace Scramble
                     pong1props.horizontal *= -1;
                 }
                 pongEnemy1.SendToBack();
+                if (pongEnemy1.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives--;
+                    if (playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
+            //
+            if (r >= 30 && r <= 40 && pong2props.isAlive == false)
+            {
+                pong2props.isAlive = true;
+                pongEnemy2.Location = new Point(r*2, 340);
+            }
+            if (pong2props.isAlive)
+            {
+                pongEnemy2.Top += pong2props.vertical * pong2props.speed;
+                pongEnemy2.Left += pong2props.horizontal * pong2props.speed;
+                if (pongEnemy2.Top >= 375 || pongEnemy2.Top <= 0)
+                {
+                    pong2props.vertical *= -1;
+                }
+                if (pongEnemy2.Left >= 650 || pongEnemy2.Left <= 0)
+                {
+                    pong2props.horizontal *= -1;
+                }
+                pongEnemy2.SendToBack();
+                if (pongEnemy2.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives--;
+                    if(playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
+            //
+            if (r >= 55 && r <= 65 && pong3props.isAlive == false)
+            {
+                pong3props.isAlive = true;
+                pongEnemy3.Location = new Point(620, r*5);
+            }
+            if (pong3props.isAlive)
+            {
+                pongEnemy3.Top += pong3props.vertical * pong3props.speed;
+                pongEnemy3.Left += pong3props.horizontal * pong3props.speed;
+                if (pongEnemy3.Top >= 375 || pongEnemy3.Top <= 0)
+                {
+                    pong3props.vertical *= -1;
+                }
+                if (pongEnemy3.Left >= 650 || pongEnemy3.Left <= 0)
+                {
+                    pong3props.horizontal *= -1;
+                }
+                pongEnemy3.SendToBack();
+                if (pongEnemy3.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives--;
+                    if (playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
+            #endregion
+            #region Emil Boss Enemy
+            if (score > 10 && emilProps.isAlive == false)
+            {
+                emilProps.isAlive = true;
+                emilBoss.Location = new Point(620, 20);
+                pong1props.isAlive = false;
+                pong2props.isAlive = false;
+                pong3props.isAlive = false;
+            }
+            if (emilProps.isAlive)
+            {
+                emilBoss.Top += (emilProps.vertical) * emilProps.speed;
+                emilBoss.Left += (emilProps.horizontal) * emilProps.speed;
+                if (emilBoss.Top >= 375 || emilBoss.Top <= 0)
+                {
+                    emilProps.vertical *= -1;
+                    emilProps.speed++;
+                }
+                if (emilBoss.Left >= 650 || emilBoss.Left <= 0)
+                {
+                    emilProps.horizontal *= -1;
+                    emilProps.speed++;
+                }
+                emilBoss.SendToBack();
+                if (emilBoss.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives-=2;
+                    if (playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
             }
             #endregion
 
