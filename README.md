@@ -1,5 +1,4 @@
 # ScrambleVP
 VP Project Scramble
 
-1.0 -- 20th May 2019
-1.1 -- 1st July 2019
+This game/project is a clone of the arcade game Scramble, made in 1981 by Konami, made in .NET Windows Forms for the purposes of a school project. It is a horizontally scrolling shooter with various enemies. Movement is with the arrow or WASD keys, and you can shoot bolts with the Z or SPACE key.
