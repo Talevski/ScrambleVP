@@ -3,42 +3,55 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Scramble
 {
+    [Serializable]
     public partial class Form1 : Form
     {
         const int movementSpeed = 15;
         int score = 0;
-        int playerLives = 7;
+        int highscore = 0;
+        int playerLives = 10;
         bool gameWorking = true;
         List<Timer> TimerList = new List<Timer>();
+        private string FileName;
+        private string playerName;
+        List<KeyValuePair<string, int>> Scores = new List<KeyValuePair<string, int>>();
 
-        Enemy pong1props = new Enemy(1, 1, 10, 4);
-        Enemy pong2props = new Enemy(-1, 1, 10, 4);
-        Enemy pong3props = new Enemy(1, -1, 10, 4);
+        Enemy pong1props = new Enemy(1, 1, 10, 6);
+        Enemy pong2props = new Enemy(-1, 1, 10, 6);
+        Enemy pong3props = new Enemy(1, -1, 10, 6);
         Enemy emilProps = new Enemy(1, 1, 5, 30);
+        Enemy tank1props = new Enemy(-1, 1, 7, 10);
+        Enemy tank2props = new Enemy(-1, 1, 7, 10);
+        Enemy commProps = new Enemy(1, -1, 6, 15);
 
         #region RandomGeneratorElements
         private List<KeyValuePair<int, double>> elements = new List<KeyValuePair<int, double>>()
         {
-            new KeyValuePair<int, double>(-12, 0.015),
-            new KeyValuePair<int, double>(-10, 0.035),
+            new KeyValuePair<int, double>(-15, 0.02),
+            new KeyValuePair<int, double>(-10, 0.03),
             new KeyValuePair<int, double>(-7, 0.05),
             new KeyValuePair<int, double>(-5, 0.15),
-            new KeyValuePair<int, double>(-3, 0.20),
+            new KeyValuePair<int, double>(-3, 0.15),
+            new KeyValuePair<int, double>(-1, 0.05),
             new KeyValuePair<int, double>(0, 0.10),
-            new KeyValuePair<int, double>(3, 0.20),
+            new KeyValuePair<int, double>(1, 0.05),
+            new KeyValuePair<int, double>(3, 0.15),
             new KeyValuePair<int, double>(5, 0.15),
             new KeyValuePair<int, double>(7, 0.05),
-            new KeyValuePair<int, double>(10, 0.035),
-            new KeyValuePair<int, double>(13, 0.015)
+            new KeyValuePair<int, double>(10, 0.03),
+            new KeyValuePair<int, double>(15, 0.02)
         };
-        private Random r = new Random();
+        public Random r = new Random();
         private double diceRoll;
         private double cumulative;
         #endregion
@@ -50,12 +63,23 @@ namespace Scramble
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //NameWindow nameWindow = new NameWindow();
+            //if (nameWindow.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    playerName = nameWindow.name;
+            //}
+            //else
+            //{
+            //    playerName = "AAA";
+            //}
+            //openFile();
+            //
             Player.Image = Properties.Resources.plane3;
             Timer timerPlayer = new Timer { Interval = 300 };
             timerPlayer.Tick += new EventHandler(PlaneImageShifter);
             timerPlayer.Start();
             //
-            Timer timerGround = new Timer { Interval = 750 };
+            Timer timerGround = new Timer { Interval = 650 };
             timerGround.Tick += new EventHandler(ChangeGround);
             timerGround.Start();
             //
@@ -77,6 +101,9 @@ namespace Scramble
             pongEnemy2.Location = new Point(800, 600);
             pongEnemy3.Location = new Point(800, 600);
             emilBoss.Location = new Point(800, 600);
+            tankEnemy1.Location = new Point(800, 600);
+            tankEnemy2.Location = new Point(800, 600);
+            commanderEnemy.Location = new Point(800, 600);
 
         }
 
@@ -104,13 +131,13 @@ namespace Scramble
                 #endregion
 
                 #region Action
-                if (e.KeyCode == Keys.Z)
+                if (e.KeyCode == Keys.Z || e.KeyCode == Keys.Space)
                 {
                     ShootBolt();
                 }
                 #endregion
 
-                Collisions();
+                //Collisions();
             }
             
         }
@@ -125,7 +152,8 @@ namespace Scramble
             int index = DateTime.Now.Millisecond % bitmap.Count;
             Player.Image = bitmap[index];
             Player.SendToBack();
-            toolStripStatusLabel2.Text = "Score:" + score.ToString();
+            toolStripStatusLabel1.Text = "Score: " + score.ToString();
+            toolStripProgressBar1.Value = playerLives;
         }
 
         private void ChangeGround(object sender, EventArgs e)
@@ -275,23 +303,30 @@ namespace Scramble
             //}
             #endregion
             //
-
+            // Redundant Function
         }
 
         public void GameOver()
         {
-            toolStripStatusLabel1.Text = "GAME OVER";
+            //toolStripStatusLabel1.Text = "GAME OVER";
+
             foreach(Timer timer in TimerList)
             {
                 timer.Stop();
             }
             gameWorking = false;
             Player.Image = Properties.Resources.planeWreck;
+            gameOverBox.Visible = true;
+            if(score > highscore)
+            {
+                highscore = score;
+            }
+            Scores.Add(new KeyValuePair<string, int>(playerName, score));
         }
 
         private void Player_LocationChanged(object sender, EventArgs e)
         {
-            toolStripStatusLabel1.Text = Player.Location.ToString();
+            //toolStripStatusLabel1.Text = Player.Location.ToString();
             if(Player.Location.X < -25) { Player.Left += movementSpeed; }
             else if(Player.Location.X > 675) { Player.Left -= movementSpeed; }
             else if (Player.Location.Y < -25) { Player.Top += movementSpeed; }
@@ -329,11 +364,21 @@ namespace Scramble
                 if (laser.Bounds.IntersectsWith(pongEnemy1.Bounds))
                 {
                     pong1props.lifePoints--;
+                    if (pong1props.lifePoints <= 3)
+                    {
+                        pongEnemy1.Image = Properties.Resources.crawlerWreck;
+                        pong1props.lifePoints--;
+                    }
                     if (pong1props.lifePoints < 0)
                     {
+                        pongEnemy1.Image = Properties.Resources.crawler;
                         pongEnemy1.Location = new Point(800, 600);
-                        pong1props = new Enemy(1, 1, 10, 4);
+                        pong1props = new Enemy(1, 1, 10, 6);
                         score++;
+                        if(playerLives < 10)
+                        {
+                            playerLives++;
+                        }
                     }
                     this.Controls.Remove(laser);
                     laser.Dispose();
@@ -341,11 +386,21 @@ namespace Scramble
                 if (laser.Bounds.IntersectsWith(pongEnemy2.Bounds))
                 {
                     pong2props.lifePoints--;
+                    if (pong2props.lifePoints <= 3)
+                    {
+                        pongEnemy2.Image = Properties.Resources.crawlerWreck;
+                        pong2props.lifePoints--;
+                    }
                     if (pong2props.lifePoints < 0)
                     {
+                        pongEnemy2.Image = Properties.Resources.crawler;
                         pongEnemy2.Location = new Point(800, 600);
-                        pong2props = new Enemy(-1, 1, 10, 4);
+                        pong2props = new Enemy(-1, 1, 10, 6);
                         score++;
+                        if (playerLives < 10)
+                        {
+                            playerLives++;
+                        }
                     }
                     this.Controls.Remove(laser);
                     laser.Dispose();
@@ -353,11 +408,21 @@ namespace Scramble
                 if (laser.Bounds.IntersectsWith(pongEnemy3.Bounds))
                 {
                     pong3props.lifePoints--;
+                    if (pong3props.lifePoints <= 3)
+                    {
+                        pongEnemy3.Image = Properties.Resources.crawlerWreck;
+                        pong3props.lifePoints--;
+                    }
                     if (pong3props.lifePoints < 0)
                     {
+                        pongEnemy3.Image = Properties.Resources.crawler;
                         pongEnemy3.Location = new Point(800, 600);
-                        pong3props = new Enemy(1, -1, 10, 4);
+                        pong3props = new Enemy(1, -1, 10, 6);
                         score++;
+                        if (playerLives < 10)
+                        {
+                            playerLives++;
+                        }
                     }
                     this.Controls.Remove(laser);
                     laser.Dispose();
@@ -366,11 +431,16 @@ namespace Scramble
                 if (laser.Bounds.IntersectsWith(emilBoss.Bounds))
                 {
                     emilProps.lifePoints--;
+                    if (emilProps.lifePoints <= 10)
+                    {
+                        emilBoss.Image = Properties.Resources.emilWreck;
+                    }
                     if (emilProps.lifePoints < 0)
                     {
                         emilBoss.Location = new Point(800, 600);
-                        //emilProps = new Enemy(1, -1, 10, 4);
-                        score+=10;
+                        emilBoss.Image = Properties.Resources.emil;
+                        emilProps = new Enemy(1, -1, 10, 30 + score/4);
+                        score += 10;
                         pong1props.isAlive = true;
                         pong2props.isAlive = true;
                         pong3props.isAlive = true;
@@ -378,6 +448,59 @@ namespace Scramble
                     this.Controls.Remove(laser);
                     laser.Dispose();
                 }
+                //
+                if (laser.Bounds.IntersectsWith(tankEnemy1.Bounds))
+                {
+                    tank1props.lifePoints--;
+                    if (tank1props.lifePoints <= 4)
+                    {
+                        tankEnemy1.Image = Properties.Resources.tankWreck;
+                    }
+                    if (tank1props.lifePoints < 0)
+                    {
+                        tankEnemy1.Location = new Point(800, 600);
+                        tankEnemy1.Image = Properties.Resources.tank;
+                        tank1props = new Enemy(-1, 1, 7, 10 + score / 7);
+                        score += 2;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
+                if (laser.Bounds.IntersectsWith(tankEnemy2.Bounds))
+                {
+                    tank2props.lifePoints--;
+                    if (tank2props.lifePoints <= 4)
+                    {
+                        tankEnemy2.Image = Properties.Resources.tankWreck;
+                    }
+                    if (tank2props.lifePoints < 0)
+                    {
+                        tankEnemy2.Location = new Point(800, 600);
+                        tankEnemy2.Image = Properties.Resources.tank;
+                        tank2props = new Enemy(-1, 1, 7, 10 + score / 7);
+                        score += 2;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
+                if (laser.Bounds.IntersectsWith(commanderEnemy.Bounds))
+                {
+                    commProps.lifePoints--;
+                    if (commProps.lifePoints <= 6)
+                    {
+                        commanderEnemy.Image = Properties.Resources.commWreck;
+                    }
+                    if (commProps.lifePoints < 0)
+                    {
+                        commanderEnemy.Location = new Point(800, 600);
+                        commanderEnemy.Image = Properties.Resources.commander;
+                        commProps = new Enemy(1, -1, 6, 20 + score/5);
+                        score += 5;
+                    }
+                    this.Controls.Remove(laser);
+                    laser.Dispose();
+                }
+
 
             }
         }
@@ -385,13 +508,13 @@ namespace Scramble
         private void MoveEnemies(object sender, EventArgs e)
         {
 
-            int r = GetNextHeight(50);
+            int rValue = GetNextHeight(50);
 
             #region Pong Crawler Enemies
-            if (r >= 40 && r <= 43 && pong1props.isAlive == false)
+            if (rValue <= 45 && pong1props.isAlive == false)
             {
                 pong1props.isAlive = true;
-                pongEnemy1.Location = new Point(620, r*2);
+                pongEnemy1.Location = new Point(620, rValue*2);
             }
             if (pong1props.isAlive)
             {
@@ -416,10 +539,10 @@ namespace Scramble
                 }
             }
             //
-            if (r >= 30 && r <= 40 && pong2props.isAlive == false)
+            if ((pong1props.isAlive == false || pong3props.isAlive == false) && pong2props.isAlive == false)
             {
                 pong2props.isAlive = true;
-                pongEnemy2.Location = new Point(r*2, 340);
+                pongEnemy2.Location = new Point(rValue*2, 340);
             }
             if (pong2props.isAlive)
             {
@@ -444,10 +567,10 @@ namespace Scramble
                 }
             }
             //
-            if (r >= 55 && r <= 65 && pong3props.isAlive == false)
+            if (rValue >= 55 && pong3props.isAlive == false)
             {
                 pong3props.isAlive = true;
-                pongEnemy3.Location = new Point(620, r*5);
+                pongEnemy3.Location = new Point(620, rValue*5);
             }
             if (pong3props.isAlive)
             {
@@ -473,7 +596,7 @@ namespace Scramble
             }
             #endregion
             #region Emil Boss Enemy
-            if (score > 10 && emilProps.isAlive == false)
+            if (score > 25 && emilProps.isAlive == false && commProps.isAlive == false)
             {
                 emilProps.isAlive = true;
                 emilBoss.Location = new Point(620, 20);
@@ -506,7 +629,161 @@ namespace Scramble
                 }
             }
             #endregion
+            #region Tank & Commander Enemies
+            if (rValue >= 60 && tank1props.isAlive == false && score >= 5)
+            {
+                tank1props.isAlive = true;
+                tankEnemy1.Location = new Point(620, r.Next(20, 350));
+            }
+            if (tank1props.isAlive)
+            {
+                if (tank2props.isAlive)
+                {
+                    tankEnemy1.Top += tank1props.vertical * tank1props.speed / 2;
+                }
+                tankEnemy1.Left += tank1props.horizontal * tank1props.speed;
+                if (tankEnemy1.Top >= 375 || tankEnemy1.Top <= 0)
+                {
+                    tank1props.vertical *= -1;
+                }
+                if (tankEnemy1.Left >= 650 || tankEnemy1.Left <= 0)
+                {
+                    tank1props.horizontal *= -1;
+                }
+                tankEnemy1.SendToBack();
+                if (tankEnemy1.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives--;
+                    if (playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
+            //
+            if (rValue <= 40 && tank2props.isAlive == false && score>=5)
+            {
+                tank2props.isAlive = true;
+                tankEnemy2.Location = new Point(r.Next(20, 600), 350);
+            }
+            if (tank2props.isAlive)
+            {
+                if (tank1props.isAlive)
+                {
+                    tankEnemy2.Left += tank2props.horizontal * tank2props.speed / 2;
+                }
+                tankEnemy2.Top += tank2props.vertical * tank2props.speed / 2;
+                if (tankEnemy2.Top >= 375 || tankEnemy2.Top <= 0)
+                {
+                    tank2props.vertical *= -1;
+                }
+                if (tankEnemy2.Left >= 650 || tankEnemy2.Left <= 0)
+                {
+                    tank2props.horizontal *= -1;
+                }
+                tankEnemy2.SendToBack();
+                if (tankEnemy2.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives--;
+                    if (playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
+            //
+            if ((rValue > 62 || rValue < 38) && commProps.isAlive == false && score >= 10)
+            {
+                commProps.isAlive = true;
+                commanderEnemy.Location = new Point(r.Next(20, 600), r.Next(20, 350));
+            }
+            if (commProps.isAlive)
+            {
+                if (tank1props.isAlive)
+                {
+                    commanderEnemy.Left += commProps.horizontal * commProps.speed / 2;
+                }
+                if (tank2props.isAlive)
+                {
+                    commanderEnemy.Top += commProps.vertical * commProps.speed / 2;
+                }
+                commanderEnemy.Left += commProps.horizontal * commProps.speed;
+                commanderEnemy.Top += commProps.vertical * commProps.speed;
 
+                if (commanderEnemy.Top >= 365 || commanderEnemy.Top <= 0)
+                {
+                    commProps.vertical *= -1;
+                }
+                if (commanderEnemy.Left >= 640 || commanderEnemy.Left <= 0)
+                {
+                    commProps.horizontal *= -1;
+                }
+                commanderEnemy.SendToBack();
+                if (commanderEnemy.Bounds.IntersectsWith(Player.Bounds))
+                {
+                    playerLives--;
+                    if (playerLives <= 0)
+                    {
+                        GameOver();
+                    }
+                }
+            }
+            #endregion
+
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //saveFile();
+        }
+
+        private void saveFile()
+        {
+            if (FileName == null)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Scramble doc file (*.scrm)|*.scrm";
+                saveFileDialog.Title = "Save scramble doc";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    FileName = saveFileDialog.FileName;
+                }
+            }
+            if (FileName != null)
+            {
+                using (FileStream fileStream = new FileStream(FileName,
+               FileMode.Create))
+                {
+                    IFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(fileStream, Scores);
+                }
+            }
+        }
+        private void openFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Scramble file (*.scrm)|*.scrm";
+            openFileDialog.Title = "Open Scramble doc file";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileName = openFileDialog.FileName;
+                try
+                {
+                    using (FileStream fileStream = new FileStream(FileName,
+                   FileMode.Open))
+                    {
+                        IFormatter formater = new BinaryFormatter();
+                        Scores = (List<KeyValuePair<string, int>>)formater.Deserialize(fileStream);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Could not read file: " + FileName);
+                    FileName = null;
+                    return;
+                }
+                Invalidate(true);
+            }
         }
     }
 }

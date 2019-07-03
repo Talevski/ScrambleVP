@@ -18,3 +18,8 @@ C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.
 C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.csproj.CoreCompileInputs.cache
 C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.exe
 C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.pdb
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.NameWindow.resources
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\bin\Debug\Scramble.exe.manifest
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\bin\Debug\Scramble.application
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.exe.manifest
+C:\Users\Kristijan\_FINKI_CODE\VP\Scramble\Scramble\Scramble\obj\Debug\Scramble.application

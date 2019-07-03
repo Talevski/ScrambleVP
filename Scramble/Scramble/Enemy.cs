@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Scramble
 {
+    [Serializable]
     public class Enemy
     {
         public int vertical { get; set; }

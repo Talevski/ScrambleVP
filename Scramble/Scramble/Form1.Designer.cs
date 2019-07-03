@@ -31,6 +31,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.gameOverBox = new System.Windows.Forms.PictureBox();
+            this.tankEnemy2 = new System.Windows.Forms.PictureBox();
+            this.commanderEnemy = new System.Windows.Forms.PictureBox();
             this.tankEnemy1 = new System.Windows.Forms.PictureBox();
             this.emilBoss = new System.Windows.Forms.PictureBox();
             this.pongEnemy3 = new System.Windows.Forms.PictureBox();
@@ -65,8 +69,10 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Player = new System.Windows.Forms.PictureBox();
-            this.pictureBox29 = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gameOverBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tankEnemy2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commanderEnemy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tankEnemy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emilBoss)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).BeginInit();
@@ -101,14 +107,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
+            this.toolStripStatusLabel2,
+            this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 388);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(684, 22);
@@ -119,20 +125,56 @@
             // 
             this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(75, 17);
-            this.toolStripStatusLabel1.Text = "GameStarted";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel1.Text = "Score:";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(36, 17);
-            this.toolStripStatusLabel2.Text = "Score";
+            this.toolStripStatusLabel2.Text = "Lives:";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Maximum = 10;
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Value = 1;
+            // 
+            // gameOverBox
+            // 
+            this.gameOverBox.BackColor = System.Drawing.Color.Transparent;
+            this.gameOverBox.BackgroundImage = global::Scramble.Properties.Resources.GameOver;
+            this.gameOverBox.Location = new System.Drawing.Point(198, 84);
+            this.gameOverBox.Name = "gameOverBox";
+            this.gameOverBox.Size = new System.Drawing.Size(330, 186);
+            this.gameOverBox.TabIndex = 41;
+            this.gameOverBox.TabStop = false;
+            this.gameOverBox.Visible = false;
+            // 
+            // tankEnemy2
+            // 
+            this.tankEnemy2.BackgroundImage = global::Scramble.Properties.Resources.tank;
+            this.tankEnemy2.Location = new System.Drawing.Point(619, 180);
+            this.tankEnemy2.Name = "tankEnemy2";
+            this.tankEnemy2.Size = new System.Drawing.Size(60, 60);
+            this.tankEnemy2.TabIndex = 40;
+            this.tankEnemy2.TabStop = false;
+            // 
+            // commanderEnemy
+            // 
+            this.commanderEnemy.BackgroundImage = global::Scramble.Properties.Resources.commander;
+            this.commanderEnemy.Location = new System.Drawing.Point(553, 84);
+            this.commanderEnemy.Name = "commanderEnemy";
+            this.commanderEnemy.Size = new System.Drawing.Size(75, 90);
+            this.commanderEnemy.TabIndex = 39;
+            this.commanderEnemy.TabStop = false;
             // 
             // tankEnemy1
             // 
             this.tankEnemy1.BackgroundImage = global::Scramble.Properties.Resources.tank;
-            this.tankEnemy1.Location = new System.Drawing.Point(497, 105);
+            this.tankEnemy1.Location = new System.Drawing.Point(553, 180);
             this.tankEnemy1.Name = "tankEnemy1";
             this.tankEnemy1.Size = new System.Drawing.Size(60, 60);
             this.tankEnemy1.TabIndex = 38;
@@ -142,7 +184,7 @@
             // 
             this.emilBoss.BackColor = System.Drawing.Color.Transparent;
             this.emilBoss.BackgroundImage = global::Scramble.Properties.Resources.emil;
-            this.emilBoss.Location = new System.Drawing.Point(497, 24);
+            this.emilBoss.Location = new System.Drawing.Point(553, 3);
             this.emilBoss.Name = "emilBoss";
             this.emilBoss.Size = new System.Drawing.Size(75, 75);
             this.emilBoss.TabIndex = 37;
@@ -152,7 +194,7 @@
             // 
             this.pongEnemy3.BackColor = System.Drawing.Color.Transparent;
             this.pongEnemy3.BackgroundImage = global::Scramble.Properties.Resources.crawler;
-            this.pongEnemy3.Location = new System.Drawing.Point(579, 136);
+            this.pongEnemy3.Location = new System.Drawing.Point(635, 115);
             this.pongEnemy3.Name = "pongEnemy3";
             this.pongEnemy3.Size = new System.Drawing.Size(49, 50);
             this.pongEnemy3.TabIndex = 36;
@@ -162,7 +204,7 @@
             // 
             this.pongEnemy2.BackColor = System.Drawing.Color.Transparent;
             this.pongEnemy2.BackgroundImage = global::Scramble.Properties.Resources.crawler;
-            this.pongEnemy2.Location = new System.Drawing.Point(579, 80);
+            this.pongEnemy2.Location = new System.Drawing.Point(635, 59);
             this.pongEnemy2.Name = "pongEnemy2";
             this.pongEnemy2.Size = new System.Drawing.Size(49, 50);
             this.pongEnemy2.TabIndex = 35;
@@ -172,7 +214,7 @@
             // 
             this.pongEnemy1.BackColor = System.Drawing.Color.Transparent;
             this.pongEnemy1.BackgroundImage = global::Scramble.Properties.Resources.crawler;
-            this.pongEnemy1.Location = new System.Drawing.Point(578, 24);
+            this.pongEnemy1.Location = new System.Drawing.Point(635, 3);
             this.pongEnemy1.Name = "pongEnemy1";
             this.pongEnemy1.Size = new System.Drawing.Size(49, 50);
             this.pongEnemy1.TabIndex = 34;
@@ -437,21 +479,12 @@
             // 
             this.Player.BackColor = System.Drawing.Color.Transparent;
             this.Player.Image = global::Scramble.Properties.Resources.plane3;
-            this.Player.Location = new System.Drawing.Point(70, 100);
+            this.Player.Location = new System.Drawing.Point(60, 115);
             this.Player.Name = "Player";
             this.Player.Size = new System.Drawing.Size(68, 46);
             this.Player.TabIndex = 0;
             this.Player.TabStop = false;
             this.Player.LocationChanged += new System.EventHandler(this.Player_LocationChanged);
-            // 
-            // pictureBox29
-            // 
-            this.pictureBox29.BackgroundImage = global::Scramble.Properties.Resources.commander;
-            this.pictureBox29.Location = new System.Drawing.Point(416, 24);
-            this.pictureBox29.Name = "pictureBox29";
-            this.pictureBox29.Size = new System.Drawing.Size(75, 90);
-            this.pictureBox29.TabIndex = 39;
-            this.pictureBox29.TabStop = false;
             // 
             // Form1
             // 
@@ -459,7 +492,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
             this.ClientSize = new System.Drawing.Size(684, 410);
-            this.Controls.Add(this.pictureBox29);
+            this.Controls.Add(this.gameOverBox);
+            this.Controls.Add(this.tankEnemy2);
+            this.Controls.Add(this.commanderEnemy);
             this.Controls.Add(this.tankEnemy1);
             this.Controls.Add(this.emilBoss);
             this.Controls.Add(this.pongEnemy3);
@@ -499,10 +534,14 @@
             this.MinimumSize = new System.Drawing.Size(700, 449);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gameOverBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tankEnemy2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.commanderEnemy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tankEnemy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emilBoss)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pongEnemy3)).EndInit();
@@ -537,7 +576,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox29)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -582,7 +620,10 @@
         private System.Windows.Forms.PictureBox pongEnemy3;
         private System.Windows.Forms.PictureBox emilBoss;
         private System.Windows.Forms.PictureBox tankEnemy1;
-        private System.Windows.Forms.PictureBox pictureBox29;
+        private System.Windows.Forms.PictureBox commanderEnemy;
+        private System.Windows.Forms.PictureBox tankEnemy2;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.PictureBox gameOverBox;
     }
 }
 
